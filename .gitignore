@@ -2,7 +2,6 @@ bin/
 build/
 dist/
 
-.vscode/
 
 .idea/
 
