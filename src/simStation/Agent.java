@@ -10,6 +10,7 @@ public class Agent implements Serializable, Runnable {
     protected boolean stopped;
     protected World world;
     transient protected Thread myThread;
+    protected String agentName;
 
     private static final Random RANDOM = new Random();
 
@@ -69,6 +70,10 @@ public class Agent implements Serializable, Runnable {
     }
 
     public void suspend() {
+        suspended = true;
+    }
+
+    public void pause() { //to be same as implementation
         suspended = true;
     }
 
