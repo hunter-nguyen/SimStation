@@ -6,3 +6,11 @@ dist/
 .idea/
 
 lib/
+out/
+*.iml
+*.jar
+*.class
+*.java
+*.txt
+*.xml
+*.properties
