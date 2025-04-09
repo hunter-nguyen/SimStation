@@ -26,8 +26,25 @@ public class WorldFactory implements AppFactory {
 
     @Override
     public Command makeEditCommand(Model model, String type, Object source) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'makeEditCommand'");
+        Command cmmd = null; //super.makeEditCommand(model, type, source);
+        if (cmmd == null) {
+            switch (type) {
+            // cmmd = new StartCommand(model, null);
+                case "Start":
+                    break;
+                case "Pause":
+                    break;
+                case "Resume":
+                    break;
+                case "Stop":
+                    break;
+                case "Stats":
+                    break;
+                default:
+                    break;
+            }
+        }
+        return cmmd;
     }
 
     @Override
