@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import mvc.*;
 
-public class World extends Model {
+abstract class World extends Model {
 
     public static final int SIZE = 500;
     private int clock;
@@ -53,12 +53,17 @@ public class World extends Model {
         changed();
     }
 
-    public void populate() {
-        // To be implemented by subclasses
-    }
+    abstract void populate();
 
     public String[] getStatus() {
-        // to be implemented
+        // TODO: to be implemented
+        String [] status = new String [agents.size()];
+        int statusCounter = 0;
+        for (Agent a: agents){
+//            status[statusCounter] = a.getStatus();
+            statusCounter++;
+        }
+        return status;
     }
 
     public void updateStatistics() {
