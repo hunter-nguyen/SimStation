@@ -3,14 +3,14 @@ import mvc.Command;
 
 
 public class StartCommand extends Command{
-    Agent agent;
-    public StartCommand(World world, Agent a) {
+    static World world;
+    public StartCommand(World w) {
         super(world);
-        agent = a;
+        world = w;
     }
 
     @Override
     public void execute() throws Exception {
-        agent.start();
+        world.startAgents();
     }
 }

@@ -29,16 +29,16 @@ public class WorldFactory implements AppFactory {
             switch (type) {
             // cmmd = new StartCommand(model, null);
                 case "Start":
-                    cmmd = new StartCommand((World) model, (Agent) source);
+                    cmmd = new StartCommand((World) model);
                     break;
                 case "Pause":
-                    cmmd = new PauseCommand((World) model, (Agent) source);
+                    cmmd = new PauseCommand((World) model);
                     break;
                 case "Resume":
-                    cmmd = new ResumeCommand((World) model, (Agent) source);
+                    cmmd = new ResumeCommand((World) model);
                     break;
                 case "Stop":
-                    cmmd = new StopCommand((World) model, (Agent) source);
+                    cmmd = new StopCommand((World) model);
                     break;
                 case "Stats":
                     cmmd = new StatsCommand((World) model, (Agent) source);

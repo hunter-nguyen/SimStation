@@ -1,16 +1,15 @@
 package simStation;
 import mvc.Command;
-import mvc.Model;
 
 public class StopCommand extends Command {
-    Agent agent;
-    public StopCommand(Model model, Agent a) {
-        super(model);
-        agent = a;
+    static World world;
+    public StopCommand(World w) {
+        super(world);
+        world = w;
     }
 
     @Override
     public void execute() throws Exception {
-        agent.stop();
+        world.stopAgents();
     }
 }

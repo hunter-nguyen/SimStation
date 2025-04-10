@@ -31,8 +31,7 @@ abstract class World extends Model {
     public void startAgents() throws Exception {
         populate();
         for (Agent agent : agents) {
-            Command cmmd = new StartCommand(this, agent);
-            cmmd.execute();
+            agent.start();
         }
         changed();
     }
