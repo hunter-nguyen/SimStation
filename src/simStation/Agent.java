@@ -33,6 +33,14 @@ public class Agent implements Serializable, Runnable {
         return yc;
     }
 
+    public void setX(int xc) {
+        this.xc = xc;
+    }
+    
+    public void setY(int yc) {
+        this.yc = yc;
+    }
+
     public void start() {
         myThread = new Thread(this::run);
         myThread.start();
