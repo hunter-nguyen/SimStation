@@ -10,7 +10,6 @@ out/
 *.iml
 *.jar
 *.class
-*.java
 *.txt
 *.xml
 *.properties
