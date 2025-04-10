@@ -1,16 +1,23 @@
 package greed;
 
-public class Meadow {
+import simStation.*;
+import java.util.*;
+
+public class Meadow extends World {
     private int waitPenalty = 5;
     private int moveEnergy = 10;
     private int numCows = 50;
-    private int dim = 20;
+    private static final int patchSize = 10;
+    private static final int dim = SIZE / patchSize;
 
-    Patch [][] patches;
+    private Patch [][] patches = new Patch[dim][dim];
 
     public Meadow(int size, int patchSize){
-        dim = size/patchSize;
-        patches = new Patch[dim][dim];
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                patches[i][j] = new Patch();
+            }
+        }
     }
 
     public Patch getPatch(int xc, int yc){
@@ -47,6 +54,22 @@ public class Meadow {
 
     public void setDim(int dim) {
         this.dim = dim;
+    }
+
+    public void populate() {
+        for (int i = 0; i < numCows; i++) {
+            Cow cow = new Cow();
+            addAgent(cow);
+        }
+    }
+
+    public void updateStatistics() {
+        super.updateStatistics();
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                patches[i][j].update();
+            }
+        }
     }
 
 }
