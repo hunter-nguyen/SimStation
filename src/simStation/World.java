@@ -24,10 +24,11 @@ abstract class World extends Model {
         // to be implemented
     }
 
-    public void startAgents() {
+    public void startAgents() throws Exception {
         populate();
         for (Agent agent : agents) {
-            agent.start();
+            Command cmmd = new StartCommand(this, agent);
+            cmmd.execute();
         }
         changed();
     }

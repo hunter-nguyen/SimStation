@@ -1,12 +1,11 @@
 package simStation;
 import mvc.Command;
-import mvc.Model;
 
 
 public class StartCommand extends Command{
     Agent agent;
-    public StartCommand(Model model, Agent a) {
-        super(model);
+    public StartCommand(World world, Agent a) {
+        super(world);
         agent = a;
     }
 
