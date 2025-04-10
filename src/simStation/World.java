@@ -2,6 +2,7 @@ package simStation;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 import mvc.*;
 
 abstract class World extends Model {
@@ -21,7 +22,10 @@ abstract class World extends Model {
     }
 
     public void addAgent(Agent a) {
-        // to be implemented
+        a.setX((int)(Math.random() * SIZE));
+        a.setY((int)(Math.random() * SIZE));
+        a.setWorld(this);
+        agents.add(a);
     }
 
     public void startAgents() throws Exception {
@@ -61,7 +65,7 @@ abstract class World extends Model {
         String [] status = new String [agents.size()];
         int statusCounter = 0;
         for (Agent a: agents){
-//            status[statusCounter] = a.getStatus();
+            status[statusCounter] = a.getStatus();
             statusCounter++;
         }
         return status;
@@ -80,6 +84,19 @@ abstract class World extends Model {
     }
 
     public Agent getNeighbor(Agent caller, int radius) {
-        // to be implemented
+        ArrayList<Agent> neighbors = new ArrayList<>();
+        for (Agent agent : agents) {
+            if (agent != caller && !(agent instanceof ObserverAgent)) {
+                int dx = agent.getX() - caller.getX();
+                int dy = agent.getY() - caller.getY();
+                double distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance <= radius) {
+                    neighbors.add(agent);
+                }
+            }
+        }
+        if (neighbors.size() == 0) return null;
+        Random rand = new Random();
+        return neighbors.get(rand.nextInt(neighbors.size()));
     }
 }
