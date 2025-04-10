@@ -9,11 +9,17 @@ public class Patch extends Agent {
 
 
     public void eatMe (Cow cow, int amt){
-
+        if (energy >= amt) {
+            energy -= amt;
+            cow.gainEnergy(amt);
+        }
+        else {
+            cow.starve();
+        }
     }
 
     public void update(){
-
+        energy = Math.min(100, energy + growBackRate);
     }
 
     public int getGrowBackRate() {
