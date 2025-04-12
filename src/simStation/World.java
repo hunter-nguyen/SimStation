@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Random;
 import mvc.*;
 
-abstract class World extends Model {
+public abstract class World extends Model {
 
     public static final int SIZE = 500;
     private int clock;
@@ -57,7 +57,7 @@ abstract class World extends Model {
         changed();
     }
 
-    abstract void populate();
+    public abstract void populate();
 
     public String[] getStatus() {
         // TODO: to be implemented
