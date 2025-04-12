@@ -10,7 +10,7 @@ public abstract class World extends Model {
     public static final int SIZE = 500;
     private int clock;
     private int alive;
-    private ArrayList<Agent> agents;
+    public ArrayList<Agent> agents;
     private ObserverAgent observer;
 
     public World() {
@@ -82,7 +82,7 @@ public abstract class World extends Model {
         changed();
     }
 
-    public Agent getNeighbor(Agent caller, int radius) {
+    public Agent getNeighbor(Agent caller, double radius) {
         ArrayList<Agent> neighbors = new ArrayList<>();
         for (Agent agent : agents) {
             if (agent != caller && !(agent instanceof ObserverAgent)) {

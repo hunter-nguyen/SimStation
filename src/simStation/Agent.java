@@ -3,7 +3,7 @@ package simStation;
 import java.io.Serializable;
 import java.util.Random;
 
-public class Agent implements Serializable, Runnable {
+public abstract class Agent implements Serializable, Runnable {
     protected int xc;
     protected int yc;
     protected boolean suspended;
@@ -36,7 +36,7 @@ public class Agent implements Serializable, Runnable {
     public void setX(int xc) {
         this.xc = xc;
     }
-    
+
     public void setY(int yc) {
         this.yc = yc;
     }
@@ -73,9 +73,7 @@ public class Agent implements Serializable, Runnable {
     protected void onExit() {
     }
 
-    public void update() {
-        // To be implemented by subclasses
-    }
+    public abstract void update();
 
     public void suspend() {
         suspended = true;
