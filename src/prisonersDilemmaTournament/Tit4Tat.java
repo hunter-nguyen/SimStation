@@ -1,11 +1,8 @@
 package prisonersDilemmaTournament;
 
-public class Tit4Tat extends Strategy{
+public class Tit4Tat extends Strategy {
 
-    public boolean cooperate() {
-        if (myPrisoner.getPartnerCheated()){
-            return false;
-        }
-        return true;
+    public boolean cooperate(){
+        return myPrisoner.getPartnerCheated();
     }
 }

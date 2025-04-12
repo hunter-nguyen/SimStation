@@ -1,9 +1,10 @@
 package prisonersDilemmaTournament;
+import mvc.*;
 
-import mvc.Utilities;
+public class RandomlyCooperate extends Strategy {
 
-public class RandomlyCooperate extends Strategy{
-    public boolean cooperate() {
-        return Utilities.rng.nextBoolean();
-        }
+    public boolean cooperate(){
+        int rand = Utilities.rng.nextInt(2);
+        return rand == 0;
+    }
 }

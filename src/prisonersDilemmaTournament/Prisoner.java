@@ -1,60 +1,33 @@
 package prisonersDilemmaTournament;
 
-import simStation.Agent;
+import mvc.*;
+import simStation.*;
 
-public class Prisoner extends Agent {
-    private int fitness = 0;
-    private boolean partnerCheated = false;
+public class Prisoner extends MobileAgent {
+    private int fitness;
+    private boolean partnerCheated;
     private Strategy strategy;
-
-    public Prisoner(Strategy strategy) {
+    private static final int STEP = 5;
+    private static final double SEARCH_RADIUS = 10;
+    public Prisoner() {
         super();
-        this.strategy = strategy;
-        strategy.setPrisoner(this);
+        fitness = 0;
+        partnerCheated = false;
     }
 
-    public boolean cooperate() {
+    private synchronized boolean cooperate() {
         return strategy.cooperate();
     }
 
-    public void update() {
-        Prisoner partner = (Prisoner)world.getNeighbor(this);
-        if (partner != null) {
-            boolean iCooperate = cooperate();
-            boolean partnerCooperates = partner.cooperate();
-
-            // Update partner's knowledge about my behavior
-            partner.setPartnerCheated(!iCooperate);
-            // Update my knowledge about partner's behavior
-            this.partnerCheated = !partnerCooperates;
-
-            // Update fitness based on the game outcome
-            if (iCooperate && partnerCooperates) {
-                // Both cooperate: 3, 3
-                updateFitness(3);
-                partner.updateFitness(3);
-            } else if (iCooperate && !partnerCooperates) {
-                // I cooperate, partner cheats: 0, 5
-                updateFitness(0);
-                partner.updateFitness(5);
-            } else if (!iCooperate && partnerCooperates) {
-                // I cheat, partner cooperates: 5, 0
-                updateFitness(5);
-                partner.updateFitness(0);
-            } else {
-                // Both cheat: 1, 1
-                updateFitness(1);
-                partner.updateFitness(1);
-            }
-        }
-    }
-
-    public void updateFitness(int amt) {
+    private synchronized void updateFitness(int amt) {
         fitness += amt;
     }
-
     public int getFitness() {
         return fitness;
+    }
+
+    public void setFitness(int fitness) {
+        this.fitness = fitness;
     }
 
     public boolean getPartnerCheated() {
@@ -67,5 +40,44 @@ public class Prisoner extends Agent {
 
     public Strategy getStrategy() {
         return strategy;
+    }
+
+    public void setStrategy(Strategy strategy) {
+        this.strategy = strategy;
+    }
+
+    @Override
+    public void update() {
+        this.heading = Heading.random();
+        int steps = Utilities.rng.nextInt(STEP) + 1;
+        move(steps);
+        Prisoner partner = (Prisoner) world.getNeighbor(this, SEARCH_RADIUS);
+        if (partner != null) {
+            this.play(partner);
+        }
+    }
+
+    public void play(Prisoner partner) {
+        boolean selfCooperate = cooperate();
+        boolean partnerCooperates = partner.cooperate();
+        if (selfCooperate) {
+            if (partnerCooperates) {
+                updateFitness(3);
+                partner.updateFitness(3);
+            } else {
+                updateFitness(0);
+                partner.updateFitness(5);
+            }
+        } else {
+            if (partnerCooperates) {
+                updateFitness(5);
+                partner.updateFitness(0);
+            } else {
+                updateFitness(1);
+                partner.updateFitness(1);
+            }
+        }
+        this.partnerCheated = !partnerCooperates;
+        partner.partnerCheated = !selfCooperate;
     }
 }
