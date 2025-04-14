@@ -14,7 +14,7 @@ public class WorldFactory implements AppFactory {
 
     @Override
     public View makeView(Model model) {
-        return new WorldView((World)w);
+        return new WorldView((World) model);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class WorldFactory implements AppFactory {
                     cmmd = new StopCommand((World) model);
                     break;
                 case "Stats":
-                    cmmd = new StatsCommand((World) model, (Agent) source);
+                    // cmmd = new StatsCommand((World) model, (Agent) source);
                     break;
                 default:
                     break;
