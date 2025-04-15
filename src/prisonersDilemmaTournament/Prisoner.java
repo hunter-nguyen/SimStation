@@ -1,33 +1,73 @@
 package prisonersDilemmaTournament;
 
-import mvc.*;
 import simStation.*;
+import mvc.*;
 
 public class Prisoner extends MobileAgent {
-    private int fitness;
-    private boolean partnerCheated;
+    private int fitness = 0;
+    private boolean partnerCheated = false;
     private Strategy strategy;
-    private static final int STEP = 5;
-    private static final double SEARCH_RADIUS = 10;
+    private static final double NEIGHBOR_RADIUS = 10.0;
+    private int heading = 0;
+
     public Prisoner() {
         super();
-        fitness = 0;
-        partnerCheated = false;
+        heading = Utilities.rng.nextInt(4) * 90;
     }
 
-    private synchronized boolean cooperate() {
+    public void setStrategy(Strategy strategy) {
+        this.strategy = strategy;
+        strategy.setPrisoner(this);
+    }
+
+    public boolean cooperate() {
         return strategy.cooperate();
     }
 
-    private synchronized void updateFitness(int amt) {
-        fitness += amt;
-    }
-    public int getFitness() {
-        return fitness;
+    @Override
+    public void update() {
+        heading = Utilities.rng.nextInt(4) * 90;
+
+        int steps = Utilities.rng.nextInt(10) + 1;
+        int dx = (int) (steps * Math.cos(Math.toRadians(heading)));
+        int dy = (int) (steps * Math.sin(Math.toRadians(heading)));
+
+        int newX = Math.min(Math.max(0, xc + dx), World.SIZE - 1);
+        int newY = Math.min(Math.max(0, yc + dy), World.SIZE - 1);
+        xc = newX;
+        yc = newY;
+
+        Agent neighbor = world.getNeighbor(this, NEIGHBOR_RADIUS);
+        if (neighbor instanceof Prisoner) {
+            Prisoner partner = (Prisoner) neighbor;
+            boolean iCooperate = cooperate();
+            boolean partnerCooperates = partner.cooperate();
+
+            partner.setPartnerCheated(!iCooperate);
+            this.partnerCheated = !partnerCooperates;
+
+            if (iCooperate && partnerCooperates) {
+                updateFitness(3);
+                partner.updateFitness(3);
+            } else if (iCooperate && !partnerCooperates) {
+                updateFitness(0);
+                partner.updateFitness(5);
+            } else if (!iCooperate && partnerCooperates) {
+                updateFitness(5);
+                partner.updateFitness(0);
+            } else {
+                updateFitness(1);
+                partner.updateFitness(1);
+            }
+        }
     }
 
-    public void setFitness(int fitness) {
-        this.fitness = fitness;
+    private void updateFitness(int amt) {
+        fitness += amt;
+    }
+
+    public int getFitness() {
+        return fitness;
     }
 
     public boolean getPartnerCheated() {
@@ -42,42 +82,13 @@ public class Prisoner extends MobileAgent {
         return strategy;
     }
 
-    public void setStrategy(Strategy strategy) {
-        this.strategy = strategy;
-    }
-
     @Override
-    public void update() {
-        this.heading = Heading.random();
-        int steps = Utilities.rng.nextInt(STEP) + 1;
-        move(steps);
-        Prisoner partner = (Prisoner) world.getNeighbor(this, SEARCH_RADIUS);
-        if (partner != null) {
-            this.play(partner);
+    public String getStatus() {
+        if (strategy != null) {
+            String strategyName = strategy.getClass().getSimpleName();
+            return String.format("%s: fitness=%d, position=(%d,%d)",
+                    strategyName, fitness, xc, yc);
         }
-    }
-
-    public void play(Prisoner partner) {
-        boolean selfCooperate = cooperate();
-        boolean partnerCooperates = partner.cooperate();
-        if (selfCooperate) {
-            if (partnerCooperates) {
-                updateFitness(3);
-                partner.updateFitness(3);
-            } else {
-                updateFitness(0);
-                partner.updateFitness(5);
-            }
-        } else {
-            if (partnerCooperates) {
-                updateFitness(5);
-                partner.updateFitness(0);
-            } else {
-                updateFitness(1);
-                partner.updateFitness(1);
-            }
-        }
-        this.partnerCheated = !partnerCooperates;
-        partner.partnerCheated = !selfCooperate;
+        return "No strategy assigned";
     }
 }

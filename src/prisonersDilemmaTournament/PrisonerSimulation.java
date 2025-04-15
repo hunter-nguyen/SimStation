@@ -1,78 +1,54 @@
 package prisonersDilemmaTournament;
 
-import mvc.*;
 import simStation.*;
-import java.util.ArrayList;
 
-public class PrisonerSimulation extends World {
-    public PrisonerSimulation() {
-        super();
-        agents = new ArrayList<>();
-    }
-
-    @Override
+public class PrisonerSimulation extends World{
     public void populate() {
-        for (int i = 0; i < 40; i++) {
-            int strategyType = i / 10;
-            addAgent(createPrisoner(strategyType));
-        }
-    }
-
-    public Prisoner createPrisoner(int strat) {
+    for (int i = 0; i < 40; i++){
         Prisoner p = new Prisoner();
-        switch (strat) {
-            case 0:
-                p.setStrategy(new Cheat());
-                break;
-            case 1:
-                p.setStrategy(new Cooperate());
-                break;
-            case 2:
-                p.setStrategy(new Tit4Tat());
-                break;
-            case 3:
-                p.setStrategy(new RandomlyCooperate());
-                break;
-        }
-        return p;
+        if (i < 10) p.setStrategy(new Cheat());
+        else if (i < 20) p.setStrategy(new Cooperate());
+        else if (i < 30) p.setStrategy(new RandomlyCooperate());
+        else p.setStrategy(new Tit4Tat());
+        addAgent(p);
     }
+}
 
-    public String[] getStats() {
-        String[] result = new String[4];
-        int cheatCount = 0, cooperateCount = 0, randomCount = 0, tit4tatCount = 0;
-        int cheatScore = 0, cooperateScore = 0, randomScore = 0, tit4tatScore = 0;
+
+    public String getStatus() {
+        int cheaterAverage = 0;
+        int cooperaterAverage = 0;
+        int randomCooperaterAverage = 0;
+        int tit4TaterAverage = 0;
+
         for (Agent a : agents) {
             if (a instanceof Prisoner) {
                 Prisoner p = (Prisoner) a;
-
                 if (p.getStrategy() instanceof Cheat) {
-                    cheatCount++;
-                    cheatScore += p.getFitness();
+                    cheaterAverage += p.getFitness();
                 }
                 else if (p.getStrategy() instanceof Cooperate) {
-                    cooperateCount++;
-                    cooperateScore += p.getFitness();
+                    cooperaterAverage += p.getFitness();
                 }
                 else if (p.getStrategy() instanceof RandomlyCooperate) {
-                    randomCount++;
-                    randomScore += p.getFitness();
+                    randomCooperaterAverage += p.getFitness();
                 }
                 else if (p.getStrategy() instanceof Tit4Tat) {
-                    tit4tatCount++;
-                    tit4tatScore += p.getFitness();
+                    tit4TaterAverage += p.getFitness();
                 }
             }
         }
+        cheaterAverage = cheaterAverage/10;
+        cooperaterAverage =  cooperaterAverage/10;
+        randomCooperaterAverage = randomCooperaterAverage/10;
+        tit4TaterAverage = tit4TaterAverage/10;
 
-        result[0] = "Average fitness for always cheat: " + ((double)cheatScore / cheatCount);
-        result[1] = "Average fitness for always cooperate: " + ((double)cooperateScore / cooperateCount);
-        result[2] = "Average fitness for randomly cooperate: " + ((double)randomScore / randomCount);
-        result[3] = "Average fitness for copy opponent (tit-for-tat): " + ((double)tit4tatScore / tit4tatCount);
-        return result;
+        return String.format("Cheater Average Fitness %d\nCooperator Average Fitness %d\nRandom Cooperator Average Fitness %d\nTit4Tater Average Fitness %d", cheaterAverage, cooperaterAverage, randomCooperaterAverage, tit4TaterAverage);
     }
-
+    
     public static void main(String[] args) {
-        AppPanel panel = new AppPanel(new PrisonerFactory());
+        WorldPanel panel = new WorldPanel(new PrisonerFactory());
         panel.display();
+
     }
 }
