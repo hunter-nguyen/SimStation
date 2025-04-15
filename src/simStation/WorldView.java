@@ -4,34 +4,29 @@ import mvc.Model;
 import mvc.View;
 
 import java.awt.*;
-import java.util.Iterator;
 
 public class WorldView extends View {
-    private static final int AGENT_SIZE = 10;
+    public WorldView(Model model) {
+        super(model);
+    }
 
-    public WorldView(Model m) {
-        super(m);
-        setBackground(Color.WHITE);
-        setPreferredSize(new Dimension(World.SIZE, World.SIZE));
+    protected void drawAgent(Agent a, Graphics gc) {
+        var oldColor = gc.getColor();
+        gc.setColor(Color.red);
+        gc.fillOval(a.xc, a.yc, 5, 5);
+        gc.setColor(oldColor);
     }
 
     @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        World world = (World)model;
-        Iterator<Agent> iterator = world.iterator();
-        while (iterator.hasNext()) {
-            drawAgent(iterator.next(), g);
-        }
-    }
+    protected void paintComponent(Graphics gc) {
+        super.paintComponent(gc);
 
-    protected void drawAgent(Agent agent, Graphics g) {
-        if (agent instanceof ObserverAgent) return;
+        var oldColor = gc.getColor();
+        gc.setColor(Color.blue);
+        gc.drawRect(0, 0, World.SIZE, World.SIZE);
+        gc.setColor(oldColor);
 
-        g.setColor(Color.RED);
-        g.fillOval(agent.getX() - AGENT_SIZE/2,
-                agent.getY() - AGENT_SIZE/2,
-                AGENT_SIZE,
-                AGENT_SIZE);
+        var world = (World) model;
+        for (var a : world.agents) drawAgent(a, gc);
     }
 }

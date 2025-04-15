@@ -58,14 +58,10 @@ public abstract class World extends Model {
     }
 
     public abstract void populate();
-
-    public String[] getStatus() {
-        // TODO: to be implemented
-        String [] status = new String [agents.size()];
-        int statusCounter = 0;
+    public String getStatus() {
+        String status = "";
         for (Agent a: agents){
-            status[statusCounter] = a.getStatus();
-            statusCounter++;
+            status += a.getStatus() + "\n";
         }
         return status;
     }

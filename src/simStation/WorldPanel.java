@@ -1,14 +1,16 @@
 package simStation;
 
-import mvc.*;
+import mvc.AppFactory;
+import mvc.AppPanel;
+import mvc.Model;
+
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+
 public class WorldPanel extends AppPanel {
+    protected JPanel threadPanel = new JPanel();
 
-    public JPanel threadPanel = new JPanel();
-
-    public WorldPanel(WorldFactory factory) {
+    public WorldPanel(AppFactory factory) {
         super(factory);
 
         threadPanel.setLayout(new GridLayout(1, 5));
@@ -54,21 +56,18 @@ public class WorldPanel extends AppPanel {
         p = new JPanel();
         p.setOpaque(false);
         p.add(threadPanel);
-        
-		controlPanel.add(p,  BorderLayout.NORTH);
+
+        controlPanel.add(p, BorderLayout.NORTH);
     }
 
-    public void setModel(Model m) {
-        super.setModel(m);
-        World w = (World)m;
-        Iterator<Agent> it = w.iterator();
-        while(it.hasNext()) {
-            Thread t = new Thread(it.next());
-            t.start();
+    @Override
+    public void setModel(Model newModel) {
+        super.setModel(newModel);
+
+        var world = (World) newModel;
+        for (var a : world.agents) {
+            a.start();
+            a.pause();
         }
     }
-
-
 }
-
-
