@@ -45,7 +45,7 @@ public class WorldFactory implements AppFactory {
                     cmmd = new StopCommand((World) model);
                     break;
                 case "Stats":
-                    // cmmd = new StatsCommand((World) model, (Agent) source);
+                    cmmd = new StatsCommand((Model) model);
                     break;
                 default:
                     break;
