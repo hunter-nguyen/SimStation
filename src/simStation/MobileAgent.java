@@ -1,6 +1,6 @@
 package simStation;
 
-public class MobileAgent extends Agent {
+public abstract class MobileAgent extends Agent {
     public Heading heading;
 
     public MobileAgent() {
@@ -48,9 +48,5 @@ public class MobileAgent extends Agent {
 
     public void turn(Heading newHeading) {
         this.heading = newHeading;
-    }
-
-    public void randomTurn() {
-        this.heading = Heading.random();
     }
 }

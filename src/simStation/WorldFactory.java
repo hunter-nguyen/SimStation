@@ -36,7 +36,7 @@ public class WorldFactory implements AppFactory {
                     cmmd = new StartCommand((World) model);
                     break;
                 case "Pause":
-                    cmmd = new PauseCommand((World) model);
+                    cmmd = new SuspendCommand((World) model);
                     break;
                 case "Resume":
                     cmmd = new ResumeCommand((World) model);
@@ -45,7 +45,7 @@ public class WorldFactory implements AppFactory {
                     cmmd = new StopCommand((World) model);
                     break;
                 case "Stats":
-                    // cmmd = new StatsCommand((World) model, (Agent) source);
+                    cmmd = new StatsCommand((Model) model);
                     break;
                 default:
                     break;
