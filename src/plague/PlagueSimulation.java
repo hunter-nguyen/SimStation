@@ -5,7 +5,7 @@ import simStation.*;
 
 public class PlagueSimulation extends World {
     public static int VIRULENCE = 50;  // % chance to infect
-    public static int RESISTANCE = 2;  // % chance of resisting
+    // public static int RESISTANCE = 2;  // % chance of resisting
     public static int INITIAL_INFECTED = 1;  // Initial percentage of individuals infected 
 
     public static int INITIAL_POPULATION_SIZE = 100;
@@ -31,7 +31,7 @@ public class PlagueSimulation extends World {
         }
         int total = agents.size();
         double percent = (double)((int)(((double) infectedCount / total) * 10001)/100);
-        String toRet = "#agents = "+ total+"\nclock = 10"+"\n% infected = "+percent;
+        String toRet = "#agents = "+ total+"\nclock = "+clock+"\n% infected = "+percent;
         return toRet;
         // return super.getStatus() + "\nInfected: " + percent + "%";
     }

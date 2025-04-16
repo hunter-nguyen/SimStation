@@ -7,7 +7,7 @@ import mvc.*;
 public abstract class World extends Model {
 
     public static final int SIZE = 500;
-    private int clock;
+    public int clock;
     private int alive;
     public ArrayList<Agent> agents;
     private ObserverAgent observer;

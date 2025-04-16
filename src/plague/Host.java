@@ -21,9 +21,10 @@ public class Host extends MobileAgent {
                 int chance = Utilities.rng.nextInt(100);
                 if (chance < PlagueSimulation.VIRULENCE) {
                     int resistance = Utilities.rng.nextInt(100);
-                    if (resistance > PlagueSimulation.RESISTANCE) {
-                        infected = true;
-                    }
+                    // if (resistance > PlagueSimulation.RESISTANCE) {
+                    //     infected = true;
+                    // }
+                    infected = true;
                 }
             }
         }

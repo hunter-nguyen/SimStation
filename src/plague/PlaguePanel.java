@@ -18,7 +18,7 @@ public class PlaguePanel extends WorldPanel implements ChangeListener{
         sliderPanel.setLayout(new GridLayout(6, 1));
         sliderPanel.setOpaque(false);
 
-        slider1 = new JSlider(JSlider.HORIZONTAL, 0, 100, 25);
+        slider1 = new JSlider(JSlider.HORIZONTAL, 0, 100, 1);
         slider1.setMinorTickSpacing(1);
         slider1.setMajorTickSpacing(3);
         slider1.setPaintTicks(true);
@@ -40,7 +40,7 @@ public class PlaguePanel extends WorldPanel implements ChangeListener{
         slider3.setPaintLabels(true);
         slider3.setLabelTable(slider3.createStandardLabels(20));
 
-        slider4 = new JSlider(JSlider.HORIZONTAL, 0, 500, 50);
+        slider4 = new JSlider(JSlider.HORIZONTAL, 0, 500, 200);
         slider4.setMinorTickSpacing(10);
         slider4.setMajorTickSpacing(50);
         slider4.setPaintTicks(true);
