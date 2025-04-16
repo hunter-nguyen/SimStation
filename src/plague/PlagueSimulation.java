@@ -1,7 +1,7 @@
 package plague;
 
-import simStation.*;
 import mvc.*;
+import simStation.*;
 
 public class PlagueSimulation extends World {
     public static int VIRULENCE = 50;  // % chance to infect
@@ -30,8 +30,10 @@ public class PlagueSimulation extends World {
             }
         }
         int total = agents.size();
-        int percent = (int)(((double) infectedCount / total) * 100);
-        return super.getStatus() + "\nInfected: " + percent + "%";
+        double percent = (double)((int)(((double) infectedCount / total) * 10001)/100);
+        String toRet = "#agents = "+ total+"\nclock = 10"+"\n% infected = "+percent;
+        return toRet;
+        // return super.getStatus() + "\nInfected: " + percent + "%";
     }
 
 

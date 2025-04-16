@@ -1,11 +1,9 @@
 package plague;
 
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.*;
-
-import mvc.*;
 import simStation.*;
 
 public class PlaguePanel extends WorldPanel implements ChangeListener{ 
@@ -43,8 +41,8 @@ public class PlaguePanel extends WorldPanel implements ChangeListener{
         slider3.setLabelTable(slider3.createStandardLabels(20));
 
         slider4 = new JSlider(JSlider.HORIZONTAL, 0, 500, 50);
-        slider4.setMinorTickSpacing(1);
-        slider4.setMajorTickSpacing(3);
+        slider4.setMinorTickSpacing(10);
+        slider4.setMajorTickSpacing(50);
         slider4.setPaintTicks(true);
         slider4.setPaintLabels(true);
         slider4.setLabelTable(slider4.createStandardLabels(50));
@@ -94,7 +92,6 @@ public class PlaguePanel extends WorldPanel implements ChangeListener{
         ppp.add(slider2);
         pp.add(ppp, BorderLayout.CENTER);
         sliderPanel.add(pp);
-        controlPanel.add(sliderPanel, BorderLayout.CENTER);
 
         //slider 3
         pp = new JPanel();
@@ -107,10 +104,10 @@ public class PlaguePanel extends WorldPanel implements ChangeListener{
 
         ppp = new JPanel();
         ppp.setOpaque(false);
-        ppp.add(slider3);
+        ppp.setLayout(new BorderLayout());
+        ppp.add(slider3, BorderLayout.CENTER);
         pp.add(ppp, BorderLayout.CENTER);
         sliderPanel.add(pp);
-        controlPanel.add(sliderPanel, BorderLayout.CENTER);
 
         //slider 4
         pp = new JPanel();
@@ -123,7 +120,8 @@ public class PlaguePanel extends WorldPanel implements ChangeListener{
 
         ppp = new JPanel();
         ppp.setOpaque(false);
-        ppp.add(slider4);
+        ppp.setLayout(new BorderLayout());
+        ppp.add(slider4, BorderLayout.CENTER);
         pp.add(ppp, BorderLayout.CENTER);
         sliderPanel.add(pp);
         controlPanel.add(sliderPanel, BorderLayout.CENTER);

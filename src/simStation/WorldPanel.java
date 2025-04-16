@@ -57,6 +57,7 @@ public class WorldPanel extends AppPanel {
         p.setOpaque(false);
         p.add(threadPanel);
 
+        controlPanel.setBackground(Color.PINK);
         controlPanel.add(p, BorderLayout.NORTH);
     }
 

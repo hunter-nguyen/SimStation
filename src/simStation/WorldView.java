@@ -1,9 +1,8 @@
 package simStation;
 
+import java.awt.*;
 import mvc.Model;
 import mvc.View;
-
-import java.awt.*;
 
 public class WorldView extends View {
     public WorldView(Model model) {
@@ -20,7 +19,7 @@ public class WorldView extends View {
     @Override
     protected void paintComponent(Graphics gc) {
         super.paintComponent(gc);
-
+        setBackground(Color.GRAY);
         var oldColor = gc.getColor();
         gc.setColor(Color.blue);
         gc.drawRect(0, 0, World.SIZE, World.SIZE);
