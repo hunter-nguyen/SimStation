@@ -12,7 +12,7 @@ public class PrisonerFactory extends WorldFactory {
 
     @Override
     public String[] getEditCommands() {
-        return new String[] { "Start", "Suspend", "Resume", "Stop", "Stats" };
+        return new String[] { "Start", "Pause", "Resume", "Stop", "Stats" };
     }
 
     @Override
@@ -24,7 +24,7 @@ public class PrisonerFactory extends WorldFactory {
         switch (type) {
             case "Start":
                 return new StartCommand(world);
-            case "Suspend":
+            case "Pause":
                 return new SuspendCommand(world);
             case "Resume":
                 return new ResumeCommand(world);

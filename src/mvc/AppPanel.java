@@ -47,7 +47,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
 
     // called by file/open and file/new
     public void setModel(Model newModel) {
-        this.model.unSubscribe(this);
+        this.model.unsubscribe(this);
         this.model = newModel;
         this.model.subscribe(this);
         // view must also unsubscribe then resubscribe:
@@ -107,7 +107,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
                 } catch (Exception e) {
                     Utilities.inform(e.getMessage());
                 }
-                
+
             }
         } catch (Exception e) {
             handleException(e);

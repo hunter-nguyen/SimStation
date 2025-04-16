@@ -27,7 +27,7 @@ public abstract class World extends Model {
         agents.add(a);
     }
 
-    public void startAgents() throws Exception {
+    public void startAgents() {
         populate();
         for (Agent agent : agents) {
             agent.start();
@@ -60,7 +60,7 @@ public abstract class World extends Model {
     public String getStatus() {
         String status = "";
         for (Agent a: agents){
-            status += a.getStatus() + "\n";
+            status += a.toString() + "\n";
         }
         return status;
     }

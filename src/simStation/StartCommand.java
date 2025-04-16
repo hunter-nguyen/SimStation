@@ -1,12 +1,14 @@
 package simStation;
+
 import mvc.Command;
+import mvc.Model;
 
+public class StartCommand extends Command {
+    private final World world;
 
-public class StartCommand extends Command{
-    static World world;
-    public StartCommand(World w) {
-        super(world);
-        world = w;
+    public StartCommand(Model model) {
+        super(model);
+        this.world = (World) model;
     }
 
     @Override
