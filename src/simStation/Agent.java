@@ -93,6 +93,4 @@ public abstract class Agent implements Serializable, Runnable {
             myThread.interrupt();
         }
     }
-
-    protected abstract String getStatus();
 }
