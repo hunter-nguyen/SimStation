@@ -1,38 +1,48 @@
 package greed;
 
 import simStation.*;
-import java.awt.*;
 
 public class Cow extends MobileAgent {
     private int energy = 100;
     private int greediness = 25;
 
+    public Cow() {
+        super();
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void increaseEnergy(int amt) {
+        energy = Math.min(100, energy + amt);
+    }
+
     @Override
-    public void update(){
+    public void update() {
         if (energy <= 0) {
-            setColor(Color.WHITE);
             stop();
             return;
         }
 
-        Meadow meadow = (Meadow) getWorld();
-        Patch patch = meadow.getPatch(getX(), getY());
+        Meadow meadow = (Meadow) world;
+        Patch patch = meadow.getPatch(xc, yc);
 
-        if (patch.getEnergy() >= greediness) {
+        if (patch != null && patch.getEnergy() >= greediness) {
             patch.eatMe(this, greediness);
-        } else if (energy >= Meadow.moveEnergy) {
-            move();
-            energy -= Meadow.moveEnergy;
+        } else if (energy >= meadow.moveEnergy) {
+            energy -= meadow.moveEnergy;
+            heading = Heading.random();
+            move(1);
         } else {
-            starve();
+            energy -= meadow.waitPenalty;
         }
+
+        if (energy <= 0) stop();
     }
 
-    public void gainEnergy(int amount) {
-        energy = Math.min(100, energy + amount);
-    }
-
-    public void starve() {
-        energy -= Meadow.waitPenalty;
+    @Override
+    protected String getStatus() {
+        return "Cow: energy=" + energy;
     }
 }
