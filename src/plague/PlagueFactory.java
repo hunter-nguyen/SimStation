@@ -16,4 +16,11 @@ public class PlagueFactory extends WorldFactory {
     public String getTitle() {
         return "Plague Simulation";
     }
+
+    // @Override
+    // public Command makeEditCommand(Model model, String type, Object source) {
+    //     if (type.equals("Not Fatal"))
+    //         return new FatalCommand(model);
+    //     return null;
+    // }
 }
