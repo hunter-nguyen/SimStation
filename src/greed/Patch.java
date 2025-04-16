@@ -5,7 +5,7 @@ import simStation.Agent;
 public class Patch extends Agent {
     private int energy = 100;
     private int growBackRate = 1;
-    private int patchSize = 10;
+    public static int patchSize = 10;
 
     public Patch() {
         super();
