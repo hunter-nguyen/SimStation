@@ -55,7 +55,7 @@ public class PrisonerFactory extends WorldFactory {
 
     @Override
     public String about() {
-        return "Prisoner's Dilemma Simulation. CS 151 Spring 2024";
+        return "Prisoner's Dilemma Simulation. CS 151 Spring 2025";
     }
 
 }

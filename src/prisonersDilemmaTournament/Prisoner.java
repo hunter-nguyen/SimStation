@@ -82,7 +82,6 @@ public class Prisoner extends MobileAgent {
         return strategy;
     }
 
-    @Override
     public String getStatus() {
         if (strategy != null) {
             String strategyName = strategy.getClass().getSimpleName();
