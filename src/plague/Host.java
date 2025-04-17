@@ -48,8 +48,4 @@ public class Host extends MobileAgent {
         return infected;
     }
 
-    @Override
-    protected String getStatus() {
-        return infected ? "infected" : "healthy";
-    }
 }

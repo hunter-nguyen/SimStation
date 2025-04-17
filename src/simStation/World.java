@@ -8,7 +8,7 @@ public abstract class World extends Model {
 
     public static final int SIZE = 500;
     public int clock;
-    private int alive;
+    public int alive;
     public ArrayList<Agent> agents;
     private ObserverAgent observer;
     public boolean hasStarted = false;

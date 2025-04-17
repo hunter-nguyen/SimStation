@@ -38,4 +38,12 @@ public class Meadow extends World {
         return null;
     }
 
+    @Override
+    public String getStatus() {
+        alive = 0;
+        for (Agent a : agents) if (a instanceof Cow cow && cow.getEnergy() > 0) alive++;
+
+        return String.format("#cows = %d\n#living = %d\n#clock = %d", numCows, alive, clock);
+    }
+
 }
