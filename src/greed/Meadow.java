@@ -12,21 +12,25 @@ public class Meadow extends World {
 
     @Override
     public void populate() {
-        // Create grid of patches
-        for (int x = 0; x < dim; x++) {
-            for (int y = 0; y < dim; y++) {
+        int rows = dim;
+        int cols = dim;
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
                 Patch patch = new Patch();
-                patch.setX(x * Patch.patchSize);
-                patch.setY(y * Patch.patchSize);
-                patches[x][y] = patch;
+                patches[row][col] = patch;
+                int x = col * Patch.patchSize;
+                int y = row * Patch.patchSize;
+                patch.setX(x);
+                patch.setY(y);
+                patch.lockPosition();
                 addAgent(patch);
             }
         }
 
-        // Add cows
-        for (int i = 0; i < numCows; i++) {
-            Cow cow = new Cow();
-            addAgent(cow);
+        // Add cows randomly across the grid
+        for (int i = 0; i < 50; i++) {
+            addAgent(new Cow());
         }
     }
 
