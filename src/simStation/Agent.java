@@ -75,6 +75,10 @@ public abstract class Agent implements Serializable, Runnable {
 
     public abstract void update();
 
+    protected String getStatus() {
+        return "";
+    }
+
     public void suspend() {
         suspended = true;
     }
