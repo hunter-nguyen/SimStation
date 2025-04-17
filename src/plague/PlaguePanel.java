@@ -124,6 +124,16 @@ public class PlaguePanel extends WorldPanel implements ChangeListener{
         ppp.add(slider4, BorderLayout.CENTER);
         pp.add(ppp, BorderLayout.CENTER);
         sliderPanel.add(pp);
+        
+
+
+        ppp = new JPanel();
+        fatalityButton = new JButton("Not Fatal");
+        ppp.setOpaque(false);
+        fatalityButton.addActionListener(this);
+        ppp.add(fatalityButton);
+
+        sliderPanel.add(ppp);
         controlPanel.add(sliderPanel, BorderLayout.CENTER);
 
         // fatalityButton = new JButton("Not Fatal");

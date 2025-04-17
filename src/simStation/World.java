@@ -11,6 +11,7 @@ public abstract class World extends Model {
     private int alive;
     public ArrayList<Agent> agents;
     private ObserverAgent observer;
+    public boolean hasStarted = false;
 
     public World() {
         this.clock = 0;
@@ -28,10 +29,14 @@ public abstract class World extends Model {
     }
 
     public void startAgents() {
-        populate();
-        for (Agent agent : agents) {
-            agent.start();
+        if (!hasStarted)
+        {
+            populate();
+            for (Agent agent : agents) {
+                agent.start();
+            }
         }
+        hasStarted = true;
         changed();
     }
 

@@ -1,18 +1,18 @@
 package plague;
 
-import simStation.*;
 import mvc.*;
+import simStation.*;
 
 
 public class FatalCommand extends Command{
     private final World world;
-    public FatalCommand(World w) {
-        super(w);
-        this.world = w;
+    public FatalCommand(Model model) {
+        super(model);
+        this.world = (World) model;
     }
 
     @Override
     public void execute() throws Exception {
-        ((PlagueSimulation)model).isFatal = !((PlagueSimulation)model).isFatal;
+        PlagueSimulation.isFatal = !PlagueSimulation.isFatal;
     }
 }

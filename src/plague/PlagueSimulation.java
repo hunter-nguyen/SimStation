@@ -11,7 +11,7 @@ public class PlagueSimulation extends World {
     public static int INITIAL_POPULATION_SIZE = 100;
     public static int RECOVERY_TIME = 200;
 
-    public static boolean isFatal = false;
+    public static boolean isFatal = true;
 
     @Override
     public void populate() {
@@ -31,7 +31,7 @@ public class PlagueSimulation extends World {
         }
         int total = agents.size();
         double percent = (double)((int)(((double) infectedCount / total) * 10001)/100);
-        String toRet = "#agents = "+ total+"\nclock = "+clock+"\n% infected = "+percent;
+        String toRet = "#agents = "+ (total-1)+"\nclock = "+clock+"\n% infected = "+percent;
         return toRet;
         // return super.getStatus() + "\nInfected: " + percent + "%";
     }
