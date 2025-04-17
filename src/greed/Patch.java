@@ -11,25 +11,37 @@ public class Patch extends Agent {
         super();
     }
 
-    public int getEnergy() {
+    public synchronized int getEnergy() {
         return energy;
     }
-    
-    public void eatMe(Cow cow, int amt){
-        if (energy >= amt) {
-            energy -= amt;
-            cow.gainEnergy(amt);
+
+    public synchronized void eatMe(Cow cow, int amt) {
+        while (energy < amt) {
+            try {
+                wait();
+                cow.increaseEnergy(-((Meadow) world).waitPenalty);
+
+                if (cow.getEnergy() <= 0) {
+                    cow.stop();
+                    return;
+                }
+            } catch (InterruptedException e) {
+                return;
+            }
         }
+
+        energy -= amt;
+        cow.increaseEnergy(amt);
     }
 
     @Override
-    public void update(){
+    public synchronized void update() {
         energy = Math.min(100, energy + growBackRate);
+        notifyAll();
     }
 
     @Override
-    public String getStatus() {
+    public String toString() {
         return "Patch: energy=" + energy;
     }
-
 }

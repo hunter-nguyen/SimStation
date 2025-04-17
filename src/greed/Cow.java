@@ -28,21 +28,24 @@ public class Cow extends MobileAgent {
         Meadow meadow = (Meadow) world;
         Patch patch = meadow.getPatch(xc, yc);
 
-        if (patch != null && patch.getEnergy() >= greediness) {
-            patch.eatMe(this, greediness);
-        } else if (energy >= meadow.moveEnergy) {
-            energy -= meadow.moveEnergy;
-            heading = Heading.random();
-            move(1);
-        } else {
-            energy -= meadow.waitPenalty;
+        if (patch != null) {
+            if (patch.getEnergy() >= greediness) {
+                patch.eatMe(this, greediness);
+            } else if (energy >= meadow.moveEnergy) {
+                energy -= meadow.moveEnergy;
+                heading = Heading.random();
+                move(1);
+            } else {
+                patch.eatMe(this, greediness);
+            }
         }
 
-        if (energy <= 0) stop();
+        if (energy <= 0)
+            stop();
     }
 
     @Override
-    protected String getStatus() {
+    public String toString() {
         return "Cow: energy=" + energy;
     }
 }
