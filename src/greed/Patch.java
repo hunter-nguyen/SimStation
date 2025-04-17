@@ -1,14 +1,35 @@
 package greed;
 
 import simStation.Agent;
+import java.awt.*;
 
 public class Patch extends Agent {
     private int energy = 100;
     private int growBackRate = 1;
-    public static int patchSize = 10;
+    public static int patchSize = 25;
+
+    private boolean positionLocked = false;
 
     public Patch() {
         super();
+    }
+
+    @Override
+    public void setX(int x) {
+        if (!positionLocked) {
+            super.setX(x);
+        }
+    }
+
+    @Override
+    public void setY(int y) {
+        if (!positionLocked) {
+            super.setY(y);
+        }
+    }
+
+    public void lockPosition() {
+        positionLocked = true;
     }
 
     public synchronized int getEnergy() {
@@ -44,4 +65,18 @@ public class Patch extends Agent {
     public String toString() {
         return "Patch: energy=" + energy;
     }
+
+
+    public void draw(Graphics g) {
+        Color color;
+        if (energy > 70) color = new Color(144, 238, 144); // forest green
+        else if (energy > 40) color = Color.GREEN;
+        else if (energy > 10) color = new Color(33, 139, 34); // light green
+        else color = Color.BLACK;
+
+        g.setColor(color);
+        g.fillRect(getX(), getY(), patchSize, patchSize);
+    }
+
+
 }
