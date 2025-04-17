@@ -11,7 +11,9 @@ public class GreedView extends WorldView {
 
     @Override
     protected void drawAgent(Agent a, Graphics gc) {
-        if (a instanceof Cow) {
+        if (a instanceof Patch) {
+            ((Patch) a).draw(gc);  // use the patch's custom draw method
+        } else if (a instanceof Cow) {
             Cow cow = (Cow) a;
             int energy = cow.getEnergy();
             Color color;
